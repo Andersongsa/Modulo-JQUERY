@@ -48,10 +48,76 @@
             alert('Produto esgotado');
     
          })
+
+         /*
+         *Callback
+         *entendendo acoes que começam ao termino de outra
+
+         */
+         $('.featured-item:nth(1)')
+            .hide(2000, function(){
+                // este é o callback
+                alert( $(this).find('h4').text() + 'esgotado')
+         })
+         .show(2000, function(){
+            console.log( $(this).find('h4').text() + 'em estoque')
+         })
+        
+    
+     /*
+        * Animações
+     */
+    const duracao = 1000 // equivale a 1 segundo
+
+     $('.featured-item:nth(0)')
+         .hide(duracao)
+         .show(duracao)
+         .fadeOut(duracao)    
+         .fadeIn(duracao)
+         .toggle(duracao)
+         .toggle(duracao)
+
+      $('#form-submit').on('click', function(e){
+
+         e.preventDefault()
+
+         if($('#email').val() != ''){
+
+            $('#email').animate({
+               opacity: "toggle",
+               top: "-50"
+            }, duracao, function(){
+               console.log($(this).val)
+            })
+         }
             
-    
-     
-     
-    
+
+         
+
+      });
     
     })
+
+    /*
+    *Incrementação da validação
+    * Checa se o nome é valido
+    * chega se o email é valido
+    * checa se o cpf é valido com regex
+    */
+
+    function validate( elem ){
+
+      if( elem.val() == '') {
+         console.log('o campo de '+ elem.attr('name') + ' é obrigatório')
+
+         elem.parent().find('.text-muted').show()
+
+         elem.addClass('invalid')
+
+         return false
+      } else {
+         elem.parent().find('.text-muted').hide()
+         elem.removeClass('invalid')
+      }
+    }
+    
